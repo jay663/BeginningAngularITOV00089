@@ -38,8 +38,9 @@ export function withSortingAndFiltering() {
       const router = inject(Router);
       return {
         setSortBy: (sortBy: SortByOption) => {
-          // update the query string parameters
+          // update the query string parameters - this is important "state"
           router.navigate([], { queryParams: { sortBy: sortBy }, queryParamsHandling: 'merge' });
+          // update the state in teh store.
           patchState(store, { sortBy: sortBy });
         },
         setSortOrder: (sortOrder: SortOrderOption) => {
@@ -69,6 +70,9 @@ export function withSortingAndFiltering() {
     withHooks({
       onInit(store) {
         effect(() => {
+          // yesterday I subscribed to an observable, had to (but didn't) unsubscribe,etc.
+          // in Angular 21.2 (?) they added a "currentNavigation()" method that returns a SIGNAL - no longer
+          // need an observable.
           const cn = store._router.currentNavigation();
           if (cn?.initialUrl?.queryParams) {
             store._updateQueryParams(cn.initialUrl.queryParams);

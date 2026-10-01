@@ -14,3 +14,7 @@ export type Trail = {
 // };
 
 export type ApiTrail = Omit<Trail, 'favorite'>;
+
+export type ApiCreate = Pick<Trail, 'name' | 'miles'> & {
+  difficulty: string;
+};

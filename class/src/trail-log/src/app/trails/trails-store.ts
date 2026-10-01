@@ -11,7 +11,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { withSortingAndFiltering } from './sorting-filtering-feature';
-import { ApiTrail, Trail } from './types';
+import { ApiCreate, ApiTrail, Trail } from './types';
 
 type TrailsState = {
   favorites: string[];
@@ -23,9 +23,8 @@ const initialTrailsState: TrailsState = {
 
 export const TrailsStore = signalStore(
   withProps(() => ({
-    // TODO: I *swear* I will fix this tomorrow- classroom crap - do not hard-code urls. duh.
-    // httpResource was "experimental" until Angular 22 (I've been using it for about a year.)
-    trailsResource: httpResource<ApiTrail[]>(() => 'http://localhost:1337/trails'),
+    // go to whatever origin is serving this app, and get /api/trails get https://localhost:8080/api/trails
+    trailsResource: httpResource<ApiTrail[]>(() => '/api/trails'),
   })),
   withState<TrailsState>(initialTrailsState), // here's the data I want to store in this "store"
   withSortingAndFiltering(),
@@ -62,6 +61,17 @@ export const TrailsStore = signalStore(
     }),
   })),
   withMethods((store) => ({
+    addTrail: async (trail: ApiCreate) => {
+      await fetch('/api/trails', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(trail),
+      });
+      // it is always best to reload the state
+      store.trailsResource.reload();
+    },
     toggleFavorite: (trailId: string) => {
       const favorites = store.favorites();
       if (favorites.includes(trailId)) {

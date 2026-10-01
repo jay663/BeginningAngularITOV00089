@@ -2,9 +2,10 @@ import { Component, signal } from '@angular/core';
 import { TreeIcon } from '../../widgets/icons/tree-icon';
 import { ExternalHyperlink } from './types';
 import { ExternalLinkItem } from './external-link';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [TreeIcon, ExternalLinkItem],
+  imports: [TreeIcon, ExternalLinkItem, RouterLink],
   selector: 'app-page-header',
   styleUrl: './page-header.css',
   templateUrl: './page-header.html',

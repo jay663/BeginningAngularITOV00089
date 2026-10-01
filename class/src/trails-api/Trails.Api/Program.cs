@@ -93,35 +93,35 @@ public class InitialTrails : IInitialData
         await using var session = store.LightweightSession();
         session.Store(new Trail()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("7eefb202-07ea-4467-9c41-ddd335ac16e8"),
             Name = "Pine Ridge Trail",
             Miles = 2.5m,
             Difficulty = DifficultyLevels.Easy
         });
         session.Store(new Trail()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("8eefb202-07ea-4467-9c41-ddd335ac16e8"),
             Name = "Canyon Loop",
             Miles = 5.0m,
             Difficulty = DifficultyLevels.Moderate  
         });
         session.Store(new Trail()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("9eefb202-07ea-4467-9c41-ddd335ac16e8"),
             Name = "Summit Ascent",
             Miles = 8.0m,
             Difficulty = DifficultyLevels.Hard
         });
         session.Store(new Trail()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("aeefb202-07ea-4467-9c41-ddd335ac16e8"),
             Name = "Rocky Ridge",
             Miles = 12.0m,
             Difficulty = DifficultyLevels.Extreme
         });
         session.Store(new Trail()
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("beefb202-07ea-4467-9c41-ddd335ac16e8"),
             Name = "Forest Loop",
             Miles = 3.5m,
             Difficulty = DifficultyLevels.Moderate

@@ -2,19 +2,19 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm",
-    "schematicCollections": ["angular-eslint", "playwright-ng-schematics"],
-    "analytics": false
+    "packageManager": "npm"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "trail-log": {
+    "demothing": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:class": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
           "skipTests": true
         },
-        "@schematics/angular:component": {
+        "@schematics/angular:class": {
           "skipTests": true
         },
         "@schematics/angular:directive": {
@@ -51,7 +51,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": [
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -78,36 +80,16 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "options": {
-            "allowedHosts": ["aspire.dev.internal"]
-          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "trail-log:build:production"
+              "buildTarget": "demothing:build:production"
             },
             "development": {
-              "buildTarget": "trail-log:build:development"
+              "buildTarget": "demothing:build:development"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-          }
-        },
-        "e2e": {
-          "builder": "playwright-ng-schematics:playwright",
-          "options": {
-            "devServerTarget": "trail-log:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "trail-log:serve:production"
-            }
-          }
         }
       }
     }

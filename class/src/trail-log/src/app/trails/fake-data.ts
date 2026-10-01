@@ -9,7 +9,7 @@ export const FAKE_TRAILS: ApiTrail[] = [
   },
   {
     id: '2',
-    name: 'Eagle Rock Trail',
+    name: 'Joe Eagle Rock Trail',
     miles: 3.2,
     difficulty: 'moderate',
   },
