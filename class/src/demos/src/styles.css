@@ -6,3 +6,9 @@
     nord --default,
     halloween --prefersdark;
 }
+
+@layer components {
+  button[appCounterButton] {
+    @apply text-6xl;
+  }
+}

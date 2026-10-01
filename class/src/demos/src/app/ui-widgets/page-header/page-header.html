@@ -1,0 +1,23 @@
+<header class="p-4 bg-base-300">
+  <h1 class="text-3xl font-primary">
+    <div class="flex flex-row gap-2">
+      <app-bug />
+      Angular Training!
+      <app-birthday-cake-icon />
+      <app-broom-icon />
+    </div>
+  </h1>
+  <p class="text-xl text-accent">Beginning Level!</p>
+  <nav class="flex flex-row gap-4">
+    <a [routerLinkActive]="['text-accent', 'font-bold']" [routerLink]="['home']" class="link"
+      >Home</a
+    >
+    <a [routerLinkActive]="['text-accent', 'font-bold']" routerLink="counter" class="link"
+      >Counter Demo One</a
+    >
+    <a [routerLinkActive]="['text-accent', 'font-bold']" routerLink="customers" class="link"
+      >Customers Demo</a
+    >
+    <a [routerLinkActive]="['text-accent', 'font-bold']" routerLink="pipes" class="link">Pipes</a>
+  </nav>
+</header>

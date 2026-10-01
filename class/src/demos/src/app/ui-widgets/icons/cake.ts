@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-birthday-cake-icon',
+  imports: [],
+  template: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+      <!-- Icon from ProIcons by ProCode - https://github.com/ProCode-Software/proicons/blob/main/LICENSE -->
+      <g
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      >
+        <path d="M4.25 13.25a2.5 2.5 0 0 1 2.5-2.5h10.5a2.5 2.5 0 0 1 2.5 2.5v8H4.25z" />
+        <path
+          d="m4.25 14.87l2.249 1.45a3 3 0 0 0 3.252 0l.623-.4a3 3 0 0 1 3.252 0l.623.4a3 3 0 0 0 3.252 0l2.249-1.45m1.5 6.375H2.75M12 2.75l1.414 1.414a2 2 0 1 1-2.828 0zm0 4.83v3.17"
+        />
+      </g>
+    </svg>
+  `,
+  styles: ``,
+})
+export class Cake {}

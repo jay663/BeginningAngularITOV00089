@@ -1,0 +1,15 @@
+@Trails.Api_HostAddress = http://localhost:1337
+
+GET http://localhost:1337/trails/
+Accept: application/json
+
+###
+
+POST http://localhost:1337/trails/
+Content-Type: application/json
+
+{
+  "name": "Chagrin Valley Trail",
+  "miles": 3.8,
+  "difficulty": "extreme"
+}
