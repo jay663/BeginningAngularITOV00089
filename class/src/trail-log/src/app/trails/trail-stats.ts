@@ -1,36 +1,30 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { Trail } from './types';
+import { StatDisplay } from '../widgets/stat-display';
 
 @Component({
   selector: 'app-trail-stats',
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, StatDisplay],
   template: `
     <div class="stats stats-vertical shadow">
-      <div class="stat">
-        <div class="stat-title text-accent">Total Miles of Trails</div>
-        <div class="stat-value text-secondary">{{ trailStats().totalMiles }}</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-title text-accent">Number of Trails</div>
-        <div class="stat-value text-secondary">{{ trailStats().numberOfTrails }}</div>
-      </div>
+      <app-stat-display label="Total Miles of Trails" value="{{ trailStats().totalMiles }}" />
+      <app-stat-display label="Number of Trails" value="{{ trailStats().numberOfTrails }}" />
 
       <div class="stat">
         <div class="stat-title text-accent">Favorite Trails</div>
         <div class="stat-value text-secondary">
           {{ trailStats().countOfFavoriteTrails }} / {{ trailStats().numberOfTrails }}
         </div>
-      </div>
-      <div class="stat">
-        <div class="stat-title text-accent">Miles by Difficulty</div>
-        <div class="stat-value text-secondary">
-          @for (difficulty of difficulties(); track $index) {
-            <div class="text-sm">
-              {{ difficulty | titlecase }}: {{ trailStats().milesByDifficulty[difficulty] || 0 }}
-            </div>
-          }
+        <div class="stat">
+          <div class="stat-title text-accent">Miles by Difficulty</div>
+          <div class="stat-value text-secondary">
+            @for (difficulty of difficulties(); track $index) {
+              <div class="text-sm">
+                {{ difficulty | titlecase }}: {{ trailStats().milesByDifficulty[difficulty] || 0 }}
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>

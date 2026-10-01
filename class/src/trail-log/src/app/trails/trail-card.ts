@@ -3,18 +3,16 @@ import { Component, inject, input } from '@angular/core';
 import { Trail } from './types';
 import { WithDifficultyDirective } from './with-difficulty';
 import { TrailsStore } from './trails-store';
+import { StatDisplay } from '../widgets/stat-display';
 
 @Component({
   selector: 'app-trails-trail-card',
-  imports: [TitleCasePipe, WithDifficultyDirective],
+  imports: [TitleCasePipe, WithDifficultyDirective, StatDisplay],
   template: `
     <div class="card-body">
       <h2 class="card-title text-secondary">{{ trail().name }}</h2>
       <div class="stats stats-vertical lg:stats-horizontal shadow">
-        <div class="stat">
-          <div class="stat-title">Miles</div>
-          <div class="stat-value">{{ trail().miles }}</div>
-        </div>
+        <app-stat-display label="Miles" [value]="trail().miles.toString()" />
 
         <div class="stat">
           <div class="stat-title">Level</div>

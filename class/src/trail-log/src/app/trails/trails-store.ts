@@ -1,3 +1,5 @@
+import { httpResource } from '@angular/common/http';
+import { computed } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -5,31 +7,52 @@ import {
   withComputed,
   withHooks,
   withMethods,
+  withProps,
   withState,
 } from '@ngrx/signals';
-import { FAKE_TRAILS } from './fake-data';
+import { withSortingAndFiltering } from './sorting-filtering-feature';
 import { ApiTrail, Trail } from './types';
-import { computed } from '@angular/core';
 
 type TrailsState = {
-  _trails: ApiTrail[];
   favorites: string[];
 };
 
 const initialTrailsState: TrailsState = {
-  _trails: [],
   favorites: [],
 };
 
 export const TrailsStore = signalStore(
+  withProps(() => ({
+    // TODO: I *swear* I will fix this tomorrow- classroom crap - do not hard-code urls. duh.
+    // httpResource was "experimental" until Angular 22 (I've been using it for about a year.)
+    trailsResource: httpResource<ApiTrail[]>(() => 'http://localhost:1337/trails'),
+  })),
   withState<TrailsState>(initialTrailsState), // here's the data I want to store in this "store"
+  withSortingAndFiltering(),
   withComputed((store) => ({
-    // these are computed values based on data in the store.
     trails: computed(() => {
-      const apiTrails = store._trails();
+      const apiTrails = store.trailsResource.value() || [];
       const favorites = store.favorites();
-      // map - given an array of x length returns a new array of x length [1,2] => (n) => n + n => [2,4]
-      return apiTrails.map(
+      const filter = store.filter();
+      const sortBy = store.sortBy();
+      const sortOrder = store.sortOrder();
+      const filteredTrails = apiTrails.filter((trail) => {
+        if (filter === 'favorites') {
+          return favorites.includes(trail.id);
+        } else if (filter === 'non-favorites') {
+          return !favorites.includes(trail.id);
+        }
+        return true;
+      });
+      const sortedTrails = filteredTrails.sort((a, b) => {
+        if (sortBy === 'name') {
+          return sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        } else if (sortBy === 'mileage') {
+          return sortOrder === 'asc' ? a.miles - b.miles : b.miles - a.miles;
+        }
+        return 0;
+      });
+      return sortedTrails.map(
         (trail) =>
           ({
             ...trail,
@@ -50,7 +73,7 @@ export const TrailsStore = signalStore(
   })),
   withHooks({
     onInit(store) {
-      patchState(store, { _trails: FAKE_TRAILS });
+      // patchState(store, { _trails: FAKE_TRAILS });
       const savedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
       patchState(store, { favorites: savedFavorites });
 
